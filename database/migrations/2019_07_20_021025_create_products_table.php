@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->integer('product_price');
             $table->integer('product_quantity');
             $table->integer('alert_quantity');
+            $table->nullableTimestamps('deleted_at');
             $table->timestamps();
         });
     }

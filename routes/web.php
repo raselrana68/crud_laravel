@@ -24,5 +24,7 @@ Route::post('user/register', 'RegisterController@userRegister');
 Route::get('add/product/view','productController@addProductView');
 Route::post('add/product/insert','productController@addProductInsert');
 Route::get('delete/product/{product_id}','productController@deleteProduct');
+Route::get('force/delete/product/{product_id}','productController@forceDeleteProduct');
 Route::get('edit/product/{product_id}','productController@editProduct');
+Route::get('restore/product/{product_id}','productController@restoreProduct');
 Route::POST('edit/product/insert','productController@editProductInsert');

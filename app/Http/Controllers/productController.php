@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 
 class productController extends Controller
 {   
+    // public function __construct(){
+    //     $this->middleware('auth'); 
+    // }
     
-    public function __construct(){
-       $this->middleware('auth');
-    }
-
     function addProductView(){
         $products = Product::paginate(10);
-        return view('product/view', compact('products'));
+        $deletedProducts = Product::onlyTrashed()->get();
+
+        return view('product/view', compact('products','deletedProducts'));
+
     }
 
     function addProductInsert(Request $request){
@@ -40,9 +42,20 @@ class productController extends Controller
         return back()->with('delete','Product Deleted Successfully');
     }
 
+    function forceDeleteProduct($product_id){
+        echo $product_id;
+        Product::onlyTrashed()->find($product_id)->forceDelete();
+        return back()->with('success1','Product has permanently Deleted');
+    }
+
     function editProduct($product_id){
         $product_info = Product::findOrFail($product_id);
         return view('product/edit',compact('product_info'));
+    }
+    
+    function restoreProduct($product_id){
+        Product::onlyTrashed()->where( 'id' , $product_id)->restore();
+        return back()->with('success','Product restored succesfully');
     }
 
     function editProductInsert(Request $request){
