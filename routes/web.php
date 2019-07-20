@@ -18,3 +18,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('user/register', 'RegisterController@userRegister');
+
+//product_routes
+
+Route::get('add/product/view','productController@addProductView');
+Route::post('add/product/insert','productController@addProductInsert');
+Route::get('delete/product/{product_id}','productController@deleteProduct');
+Route::get('edit/product/{product_id}','productController@editProduct');
+Route::POST('edit/product/insert','productController@editProductInsert');
