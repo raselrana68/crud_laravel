@@ -10,13 +10,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth/register');
-});
+Route::get('/', 'RegisterController@login');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('user/register', 'RegisterController@index');
 Route::post('user/register', 'RegisterController@userRegister');
 
 //product_routes

@@ -17,6 +17,14 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
+    function index(){
+        if(auth()->user()){
+            return back();
+        }
+        else{
+            return view('auth/login');
+        }
+    }
 
     use AuthenticatesUsers;
 

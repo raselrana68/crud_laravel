@@ -142,7 +142,7 @@
                             <input type="text" class="form-control" placeholder="Enter your product Alert quantity " name="alert_quantity" value="{{ old('alert_quantity')}}">
                     </div>
                     <div >
-                        <button  type="submit" class="btn btn-primary">Add Product</button>
+                        <button  type="submit" class="btn btn-primary offset-4">Add Product</button>
                     </div>
                 </form>
                 </div>

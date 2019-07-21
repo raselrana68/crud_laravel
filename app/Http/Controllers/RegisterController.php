@@ -11,17 +11,26 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 
 class RegisterController extends Controller
-{
-    function userRegister(Request $request){
-        // User::create([
-        //     'username' => 'Namen',
-        //     'email' => $request['email'],
-        //     'password' => Hash::make($request['password']),
-        //     'birthdate'=> $request['birthdate'],
-        //     'city'=> $request['city'],
-        //     'country'=>$request['country'],
-        // ]);
+{   
+    function login(){
+        if(auth()->user()){
+            return back();
+        }
+        else{
+            return view('auth/login');
+        }
+    }
 
+    function index(){
+        if(auth()->user()){
+            return back();
+        }
+        else{
+            return view('auth/register');
+        }
+    }
+
+    function userRegister(Request $request){
         $request->validate([
             'username'=> 'required',
             'email'=>'required|email',
