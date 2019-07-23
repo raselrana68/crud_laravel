@@ -4,6 +4,12 @@
   <div class="container">
       <div class="row">
         <div class="col-6 offset-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('add/product/view')}}">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"> {{ $product_info -> product_name}} </li>
+                </ol>
+              </nav>
               <div class="card">
                   <div class="card-header bg-success">
                     Edit Product

@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-8">
-            <div class="card mb-3">
+        <div class="col-9">
+            <div class="card">
                 <div class="card-header bg-success text-light">
                     Product
                 </div>
@@ -24,6 +24,7 @@
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Alert Quantity</th>
                                     <th scope="col">Image</th>
+                                    <th scope="col">created at</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -39,6 +40,10 @@
                                     <img src="{{ asset('uploads/product_photos')}}/{{ $product->product_image}}" alt="not found" width="50">
                                     </td>
                                     <td>
+                                         {{ Carbon\Carbon::parse($product->created_at)->format('d-M-Y h:i A') }} <br>
+                                         <span class="text-info"> {{ ($product->created_at)->diffForHumans()}} </span>
+                                    </td>
+                                    <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             <a href="{{ url('edit/product') }}/{{ $product->id }}" class="btn btn-info text-light">Edit</a>
                                             <a href="{{ url('delete/product') }}/{{ $product->id }}" class="btn btn-warning text-danger">Delete</a>
@@ -47,7 +52,7 @@
                                 </tr>
                                 @empty
                                 <tr class="text-center text-danger">
-                                    <td colspan="6">No data available</td>
+                                    <td colspan="8">No data available</td>
                                 </tr>
                                 @endforelse
                             </tbody>
@@ -72,6 +77,7 @@
                                         <th scope="col">Product Price</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Alert Quantity</th>
+                                        <th scope="col">Image</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -84,6 +90,9 @@
                                         <td>{{ $dproduct->product_quantity}}</td>
                                         <td>{{ $dproduct->alert_quantity}}</td>
                                         <td>
+                                            <img src="{{ asset('uploads/product_photos')}}/{{ $dproduct->product_image}}" alt="not found" width="50">
+                                        </td>
+                                        <td>
                                             <div class="btn-group" role="group" aria-label="Basic example">
                                                 <a href="{{ url('restore/product') }}/{{ $dproduct->id }}" class="btn btn-success">Restore</a>
                                                 <a href="{{ url('force/delete/product') }}/{{ $dproduct->id }}" class="btn btn-danger">Delete</a>
@@ -92,7 +101,7 @@
                                     </tr>
                                     @empty
                                     <tr class="text-center text-danger">
-                                        <td colspan="6">No data available</td>
+                                        <td colspan="7">No data available</td>
                                     </tr>
                                     @endforelse
                                 </tbody>
@@ -104,9 +113,9 @@
             </div>
         </div>
         
-        <div class="col-4">
+        <div class="col-3">
             <div class="card">
-                <div class="card-header bg-success">
+                <div class="card-header bg-success text-light">
                     Add Product
                 </div>
                 <div class="card-body">

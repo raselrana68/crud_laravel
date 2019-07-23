@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use Image;
+use Carbon\Carbon;
 
 class productController extends Controller
 {   
@@ -35,6 +36,7 @@ class productController extends Controller
             'product_price'=>$request->product_price,
             'product_quantity'=>$request->product_quantity,
             'alert_quantity'=>$request->alert_quantity,
+            'created_at'=> Carbon::now(),
         ]);
 
          if($request->hasFile('product_image')){
