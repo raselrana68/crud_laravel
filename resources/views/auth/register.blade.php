@@ -64,10 +64,6 @@
                             <h6>Agreed amd Consent to our <span class="text-danger">terms of Service</span> and End User License agreement</h6>
                         </div>
                        
-                        <div class="form-group offset-5">
-                            <input type="radio" name="agree" value="agree"> Agree 
-                        </div>
-
                         <div class="form-group col-10 offset-4">
                             <button  type="submit" class="btn btn-primary">Create New Account</button>
                         </div>

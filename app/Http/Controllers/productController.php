@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Product;
 use Illuminate\Http\Request;
+use App\Product;
+use Image;
 
 class productController extends Controller
 {   
@@ -19,6 +20,7 @@ class productController extends Controller
     }
 
     function addProductInsert(Request $request){
+        
         $request->validate([
             'product_name'=> 'required',
             'product_description'=>'required',
@@ -27,13 +29,22 @@ class productController extends Controller
             'alert_quantity'=> 'required | numeric',
         ]);
 
-        Product::insert([
+        $last_inserted_id = Product::insertGetId([
             'product_name'=>$request->product_name,
             'product_description'=>$request->product_description,
             'product_price'=>$request->product_price,
             'product_quantity'=>$request->product_quantity,
             'alert_quantity'=>$request->alert_quantity,
         ]);
+
+         if($request->hasFile('product_image')){
+            $photo_to_upload = $request->product_image;
+            $filename = $last_inserted_id.".".$photo_to_upload->getClientOriginalExtension();
+            Image::make($photo_to_upload)->resize(400,450)->save(base_path('public/uploads/product_photos/'.$filename));
+            Product::find($last_inserted_id)->update([
+                'product_image' => $filename
+            ]);
+        }
         return back()->with('status','Product Added Successfully');
     }
 
@@ -43,8 +54,15 @@ class productController extends Controller
     }
 
     function forceDeleteProduct($product_id){
-        echo $product_id;
-        Product::onlyTrashed()->find($product_id)->forceDelete();
+        //echo Product::onlyTrashed()->find($product_id)->product_image;
+
+        if( Product::onlyTrashed()->find($product_id)->product_image == 'default_product_photo.jpg'){
+            Product::onlyTrashed()->find($product_id)->forceDelete();
+        }else{
+            $delete_this_file = Product::onlyTrashed()->find($product_id)->product_image;
+            unlink(base_path('public/uploads/product_photos/'.$delete_this_file));
+            Product::onlyTrashed()->find($product_id)->forceDelete();
+        }
         return back()->with('success1','Product has permanently Deleted');
     }
 
@@ -60,6 +78,29 @@ class productController extends Controller
 
     function editProductInsert(Request $request){
         //print_r($request->all());
+        
+        if($request->hasFile('product_image')){
+
+            if(Product::find($request->id)->product_image == 'default_product_photo.jpg'){
+                $photo_to_upload = $request->product_image;
+                $filename = $request->id.".".$photo_to_upload->getClientOriginalExtension();
+                Image::make($photo_to_upload)->resize(400,450)->save(base_path('public/uploads/product_photos/'.$filename));
+                Product::find($request->id)->update([
+                    'product_image' => $filename
+                ]);
+            }else{
+
+                $delete_this_file = Product::find($request->id)->product_image ;
+                unlink(base_path('public/uploads/product_photos/'.$delete_this_file));
+
+                $photo_to_upload = $request->product_image;
+                $filename = $request->id.".".$photo_to_upload->getClientOriginalExtension();
+                Image::make($photo_to_upload)->resize(400,450)->save(base_path('public/uploads/product_photos/'.$filename));
+                Product::find($request->id)->update([
+                    'product_image' => $filename
+                ]);
+            }
+        }
         Product::find($request->id)->update([
             'product_name'=>$request->product_name,
             'product_description'=>$request->product_description,

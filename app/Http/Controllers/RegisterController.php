@@ -38,7 +38,6 @@ class RegisterController extends Controller
             'birthdate'=> 'required|date',
             'city'=> 'required',
             'country'=> 'required',
-            'agree'=> 'required',
         ]);
 
         User::insert([

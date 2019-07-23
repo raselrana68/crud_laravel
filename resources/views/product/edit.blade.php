@@ -14,7 +14,7 @@
                             {{ session('status')}}
                         </div>
                       @endif
-                  <form action="{{url('edit/product/insert')}}" method="post">
+                  <form action="{{url('edit/product/insert')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <input type="hidden" class="form-control" name="id" value="{{ $product_info -> id}}">
@@ -38,6 +38,11 @@
                             <div class="form-group">
                                     <label>Alert Quantity</label>
                                     <input type="text" class="form-control" name="alert_quantity" value="{{ $product_info -> alert_quantity}}">
+                            </div>
+                            <div class="form-group">
+                                    <label>Product Image : </label>
+                                    <input type="file" name="product_image">
+                                    <img src="{{ asset('uploads/product_photos')}}/{{ $product_info->product_image}}" alt="Not Found" width="60">
                             </div>
                             <div align="center">
                               <button  type="submit" class="btn btn-primary">Save</button>
