@@ -37,11 +37,11 @@
                                     <td>{{ $product->product_quantity}}</td>
                                     <td>{{ $product->alert_quantity}}</td>
                                     <td>
-                                    <img src="{{ asset('uploads/product_photos')}}/{{ $product->product_image}}" alt="not found" width="50">
+                                        <img src="{{ asset('uploads/product_photos')}}/{{ $product->product_image}}" alt="not found" width="50">
                                     </td>
                                     <td>
-                                         {{ Carbon\Carbon::parse($product->created_at)->format('d-M-Y h:i A') }} <br>
-                                         <span class="text-info"> {{ ($product->created_at)->diffForHumans()}} </span>
+                                        {{ Carbon\Carbon::parse($product->created_at)->format('d-M-Y h:i A') }} <br>
+                                        <span class="text-info"> {{ ($product->created_at)->diffForHumans()}} </span>
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
@@ -166,5 +166,4 @@
             </div>
         </div>
     </div>
-    
-    @endsection
+@endsection

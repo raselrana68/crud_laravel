@@ -20,7 +20,7 @@ class RegisterController extends Controller
             return view('auth/login');
         }
     }
-
+    
     function index(){
         if(auth()->user()){
             return back();
@@ -29,7 +29,7 @@ class RegisterController extends Controller
             return view('auth/register');
         }
     }
-
+    
     function userRegister(Request $request){
         $request->validate([
             'username'=> 'required',
@@ -38,16 +38,17 @@ class RegisterController extends Controller
             'birthdate'=> 'required|date',
             'city'=> 'required',
             'country'=> 'required',
-        ]);
-
-        User::insert([
-            'username'=>$request->username,
-            'email'=>$request->email,
-            'password'=>Hash::make($request->password),
-            'birthdate'=>$request->birthdate,
-            'city'=>$request->city,
-            'country'=>$request->country,
-        ]);
-        return back()->with( 'success' , 'Successfully registered');    
-    }
+            ]);
+            
+            User::insert([
+                'username'=>$request->username,
+                'email'=>$request->email,
+                'password'=>Hash::make($request->password),
+                'birthdate'=>$request->birthdate,
+                'city'=>$request->city,
+                'country'=>$request->country,
+                ]);
+                return back()->with( 'success' , 'Successfully registered');    
+            }
 }
+        
