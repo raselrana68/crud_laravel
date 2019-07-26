@@ -17,6 +17,14 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
+    function index(){
+        if(auth()->user()){
+            return back();
+        }
+        else{
+            return view('auth/login');
+        }
+    }
 
     use AuthenticatesUsers;
 
@@ -25,7 +33,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'add/product/view';
 
     /**
      * Create a new controller instance.
